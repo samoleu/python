@@ -31,7 +31,7 @@ def processa(arqin):
         else:
             dic[palavra] = [linha]
             palavra = ''
- 
+
         linha = arqin.readline().strip('\n')
     arqin.close()
     return dic
@@ -39,28 +39,27 @@ def processa(arqin):
 def relatorioDomains(arqout,dic):
     
     # arquivo de saida
-    arqout = open('./prova/arqout.txt','w')
-    dic_aux = {}
-    chave = list(dic.keys())
+    arqout = open(arqout,'w')
+    lista_aux = []
 
-    for pais in chave:
-        for j in dic[pais]:
+    for i in range(len(lista_d)):
+        for e in range(len(lista_d[i])):
             corte = j.split('.')
             aux = len(corte)
 
             # Pega a terceira parte da url (com, org, net)
-            if corte[aux-2] in dic_aux:
-                dic_aux[corte[aux-2]] += 1
+            if corte[aux-2] in lista_aux:
+                lista_aux[corte[aux-2]] += 1
             else:
-                dic_aux[corte[aux-2]] = 1
+                lista_aux[corte[aux-2]] = 1
         
         cod_pais = pais + ':' + ' \n'
         arqout.write(cod_pais)
-        chave_aux = list(dic_aux.keys())
+
         
         # Escreve as quantias de cada dominio dos países
-        for dominio in chave_aux:
-            StrQuantdominio = ' ' + dominio + ': ' + str(dic_aux[dominio]) + '\n'
+        for dominio in lista_aux:
+            StrQuantdominio = ' ' + dominio + ': ' + str(lista_aux[dominio]) + '\n'
             arqout.write(StrQuantdominio)
         arqout.write("\n")
     arqout.close()
